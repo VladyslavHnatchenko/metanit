@@ -1,23 +1,36 @@
 from django.shortcuts import render
+from .forms import UserForm
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.http import HttpResponsePermanentRedirect
 
 
 def index(request):
-    header = "Personal Data"
-    langs = ["English", "German", "Spanish"]
-    user = {"name": "Tom", "age": 23}
-    addr = ("Apricot", 23, 45)
+    if request.method == "POST":
+        name = request.POST.get("name")
+        return HttpResponse("<h2>Hello, {0}</h2>".format(name))
+    else:
+        userform = UserForm()
+        return render(request, "index.html", {"form": userform})
 
-    data = {
-        "header": header,
-        "langs": langs,
-        "user": user,
-        "address": addr
-    }
+# def index(request):
+#     userform = UserForm()
+#     return render(request, "index.html", {"form": userform})
 
-    return render(request, "index.html", context=data)
+# def index(request):
+#     header = "Personal Data"
+#     langs = ["English", "German", "Spanish"]
+#     user = {"name": "Tom", "age": 23}
+#     addr = ("Apricot", 23, 45)
+#
+#     data = {
+#         "header": header,
+#         "langs": langs,
+#         "user": user,
+#         "address": addr
+#     }
+#
+#     return render(request, "index.html", context=data)
 
 # def index(request):
 #     data = {
