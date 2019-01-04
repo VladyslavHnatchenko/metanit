@@ -15,20 +15,36 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
+from django.views.generic import TemplateView
 from firstapp import views
 
 
 urlpatterns = [
-    path('products/', views.products),
-    path('products/<int:productid>/', views.products),
-    path('users/', views.users),
-    path('users/<int:id>/<str:name>/', views.users),
-    re_path(r'^about', views.about),
-    re_path(r'^contact', views.contact),
     path('', views.index),
+    path('about/', TemplateView.as_view(template_name="about.html")),
+    path('contact/', TemplateView.as_view(template_name="contact.html")),
 ]
 
 # urlpatterns = [
+#     path('', views.index),
+#     path('about/', views.about),
+#     path('contact/', views.contact),
+#     path('detail/', views.details),
+# ]
+
+# urlpatterns = [
+#     path('products/<int:productid>/', views.products),
+#     path('users/', views.users),
+#     re_path(r'^about', views.about),
+#     re_path(r'^contact', views.contact),
+#     path('', views.index),
+# ]
+
+# urlpatterns = [
+#     path('products/', views.products),
+#     path('products/<int:productid>/', views.products),
+#     path('users/', views.users),
+#     path('users/<int:id>/<str:name>/', views.users),
 #     path('products/<int:productid>/', views.products),
 #     path('users/<int:id>/<name>/', views.users),
 #     re_path(r'products/$', views.products),
