@@ -1,11 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta charset="UTF-8">
+	<title>Django Forms</title>
+	<style>
+		.myfield{
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			height: 25px;
+			width: 200px;
+			margin: 10px 10px 10px 0;
+		}
+	</style>
+</head>
+<body>
+	<form method="POST">
+		{% csrf_token %}
+		<div>
+		{% for field in form %}
+		<div class="row">
+			{{ field.label_tag }}
+			<div class="col-md-10">{{ field }}</div>
+		</div>
+		{% endfor %}
+		</div>
+		<input type="submit" value="Send">
+	</form>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Django Forms</title>
+	<style>
+		.field{font-weight: bold;}
+		.error{color: red;}
+	</style>
+</head>
+<body class="container">
+	<form method="POST" novalidate>
+		{% csrf_token %}
+		<table>
+		{{ form }}
+		</table>
+		<input type="submit" value="Send">
+	</form>
+</body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Django Forms</title>
+	<style>
+		.alert{color:red}
+		.form-group{margin: 10px 0;}
+		.form-group input{width: 250px; height: 25px; border-radius: 3px;}
+	</style>
+</head>
+<body class="container">
+	<form method="POST" novalidate>
+		{% csrf_token %}
+		<div>
+		{% for field in form %}
+		<div class="form-group">
+			{{ field.label_tag }}
+			<div>{{ field }}</div>
+			{% if field.errors %}
+			{% for error in field.errors %}
+			<div class="alert alert-danger">
+				{{ error }}
+			</div>
+			{% endfor %}
+			{% endif %}
+		</div>
+		{% endfor %}
+		</div>
+		<input type="submit" value="Send">
+	</form>
+</body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <title>Django Forms</title>
 </head>
 <body>
-	<h2>as_table</h2>
+	<form method="POST" novalidate>
+		{% csrf_token %}
+		<div>
+		{% for field in form %}
+		<div class="form-group">
+			{{ field.label_tag }}
+			<div>{{ field }}</div>
+			<div class="error">{{ fields.errors }}</div>
+		</div>
+		{% endfor %}
+		</div>
+		<input type="submit" value="Send">
+	</form>
+</body>
+</html> -->
+
+<!-- <h2>as_table</h2>
 	<form method="POST">
 		{% csrf_token %}
 		<table>
@@ -28,6 +130,4 @@
 		{{ form.as_p }}
 		</div>
 		<input type="submit" value="Send">
-	</form>
-</body>
-</html>
+	</form> -->
