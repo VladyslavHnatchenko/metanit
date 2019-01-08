@@ -2,6 +2,73 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<title>Django models</title>
+</head>
+<body class="container">
+	<form method="POST" action="create/">
+		{% csrf_token %}
+		<p>
+			<label>Enter name</label><br>
+			<input type="text" name="name">
+		</p>
+		<p>
+			<label>Enter age</label><br>
+			<input type="number" name="age">
+		</p>
+		<input type="submit" value="Save">
+	</form>
+	{% if people.count > 0 %}
+	<h2>Users list</h2>
+	<table>
+		<thead><th>Id</th><th>Name</th><th>Age</th><th></th></thead>
+		{% for person in people %}
+		<tr>
+			<td>{{ person.id }}</td>
+			<td>{{ person.name }}</td>
+			<td>{{ person.age }}</td>
+			<td><a href="edit/{{ person.id }}">Edit</a> | <a href="delete/{{ person.id }}">Delete</a></td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Django Models</title>
+</head>
+<body class="container">
+	<form method="POST" action="create/">
+		{% csrf_token %}
+		<p>
+			<label>Enter name</label><br>
+			<input type="text" name="name">
+		</p>
+		<p>
+			<label>Enter age</label><br>
+			<input type="number" name="age">
+		</p>
+		<input type="submit" value="Save">
+	</form>
+	{% if people.count > 0 %}
+	<h2>Users list</h2>
+	<table>
+		<tr><th>Id</th><th>Name</th><th>Age</th></tr>
+		{% for person in people %}
+		<tr><td>{{ person.id }}</td><td>{{ person.name }}</td><td>{{ person.age }}</td></tr>
+		{% endfor %}
+	</table>
+	{% endif %}
+</body>
+</html> -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
 	<title>Django Forms</title>
 	<style>
 		.myfield{
@@ -27,7 +94,7 @@
 		<input type="submit" value="Send">
 	</form>
 </body>
-</html>
+</html> -->
 
 <!-- <!DOCTYPE html>
 <html lang="en">

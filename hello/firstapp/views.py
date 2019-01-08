@@ -1,18 +1,77 @@
 from django.shortcuts import render
 from .forms import UserForm
 from django.http import HttpResponse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.http import HttpResponsePermanentRedirect
+from .models import Person
+
+
+"""get data from DB"""
 
 
 def index(request):
-    userform = UserForm()
+    people = Person.objects.all()
+    return render(request, "index.html", {"people": people})
+
+
+"""save data in DB"""
+
+
+def create(request):
     if request.method == "POST":
-        userform = UserForm(request.POST)
-        if userform.is_valid():
-            name = userform.cleaned_data["name"]
-            return HttpResponse("<h2>Hello, {0}</h2>".format(name))
-    return render(request, "index.html", {"form": userform})
+        person = Person()
+        person.name = request.POST.get("name")
+        person.age = request.POST.get("age")
+        person.save()
+    return HttpResponseRedirect("/")
+
+
+"""edit data in DB"""
+
+
+def edit(request, id):
+    try:
+        person = Person.objects.get(id=id)
+
+        if request.method == "POST":
+            person.name = request.POST.get("name")
+            person.age = request.POST.get("age")
+            person.save()
+            return HttpResponseRedirect("/")
+        else:
+            return render(request, "edit.html", {"person": person})
+
+    except Person.DoesNotExist:
+        return HttpResponseNotFound("<h2>Person not found</h2>")
+
+
+"""delete data from DB"""
+
+
+def delete(request, id):
+    try:
+        person = Person.objects.get(id=id)
+        person.delete()
+        return HttpResponseRedirect("/")
+    except Person.DoesNotExist:
+        return HttpResponseNotFound("<h2>Person not found</h2>")
+
+# def create(request):
+#     if request.method == "POST":
+#         tom = Person()
+#         tom.name = request.POST.get("name")
+#         tom.age = request.POST.get("age")
+#         tom.save()
+#     return HttpResponseRedirect("/")
+
+# def index(request):
+#     userform = UserForm()
+#     if request.method == "POST":
+#         userform = UserForm(request.POST)
+#         if userform.is_valid():
+#             name = userform.cleaned_data["name"]
+#             return HttpResponse("<h2>Hello, {0}</h2>".format(name))
+#     return render(request, "index.html", {"form": userform})
 
 # def index(request):
 #     if request.method == "POST":

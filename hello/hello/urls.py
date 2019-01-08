@@ -21,9 +21,21 @@ from firstapp import views
 
 urlpatterns = [
     path('', views.index),
-    path('about/', TemplateView.as_view(template_name="about.html")),
-    path('contact/', TemplateView.as_view(template_name="contact.html")),
+    path('create/', views.create),
+    path('edit/<int:id>/', views.edit),
+    path('delete/<int:id>/', views.delete),
 ]
+
+# urlpatterns = [
+#     path('', views.index),
+#     path('create/', views.create),
+# ]
+
+# urlpatterns = [
+#     path('', views.index),
+#     path('about/', TemplateView.as_view(template_name="about.html")),
+#     path('contact/', TemplateView.as_view(template_name="contact.html")),
+# ]
 
 # urlpatterns = [
 #     path('', views.index),
