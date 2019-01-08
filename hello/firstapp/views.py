@@ -7,11 +7,23 @@ from django.http import HttpResponsePermanentRedirect
 
 def index(request):
     if request.method == "POST":
-        name = request.POST.get("name")
-        return HttpResponse("<h2>Hello, {0}</h2>".format(name))
+        userform = UserForm(request.POST)
+        if userform.is_valid():
+            name = userform.cleaned_data["name"]
+            return HttpResponse("<h2>Hello, {0}</h2>".format(name))
+        else:
+            return HttpResponse("Invalid data")
     else:
         userform = UserForm()
         return render(request, "index.html", {"form": userform})
+
+# def index(request):
+#     if request.method == "POST":
+#         name = request.POST.get("name")
+#         return HttpResponse("<h2>Hello, {0}</h2>".format(name))
+#     else:
+#         userform = UserForm()
+#         return render(request, "index.html", {"form": userform})
 
 # def index(request):
 #     userform = UserForm()
