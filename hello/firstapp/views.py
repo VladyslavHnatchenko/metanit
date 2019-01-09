@@ -4,6 +4,30 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.http import HttpResponsePermanentRedirect
 from .models import Person
+from .models import Company, Product
+from .models import Course, Student
+
+
+python = Course.objects.create(name="Python")
+python.student_set.create(name="Bob")
+
+sam = Student(name="Sam")
+sam.save()
+python.student_set.add(sam)
+
+
+# tom = Student.objects.create(name="Tom")
+# tom.courses.create(name="Algebra")
+#
+# courses = Student.objects.get(name="Tom").courses.all()
+#
+# studes = Student.objects.filter(courses__name="Algebra")
+#
+# apple = Company.objects.create(name="Apple")
+# apple.product_set.create(name="iPhone 8", price=67890)
+#
+# ipad = Product(name="iPad", price=34560)
+# apple.product_set.add(ipad, bulk=False)
 
 
 """get data from DB"""
