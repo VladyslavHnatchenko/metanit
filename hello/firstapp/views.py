@@ -5,16 +5,22 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.http import HttpResponsePermanentRedirect
 from .models import Person
 from .models import Company, Product
-from .models import Course, Student
+from .models import Course, Student, User, Account
 
 
-python = Course.objects.create(name="Python")
-python.student_set.create(name="Bob")
+sam = User.objects.create(name="Sam")
 
-sam = Student(name="Sam")
-sam.save()
-python.student_set.add(sam)
+acc = Account.objects.create(login="1234", password="6565", user=sam)
 
+acc.user.name = "Bob"
+acc.user.save()
+
+# python = Course.objects.create(name="Python")
+# python.student_set.create(name="Bob")
+#
+# sam = Student(name="Sam")
+# sam.save()
+# python.student_set.add(sam)
 
 # tom = Student.objects.create(name="Tom")
 # tom.courses.create(name="Algebra")
